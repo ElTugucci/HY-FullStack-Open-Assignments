@@ -1,18 +1,16 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import Filter from "./components/Filter";
 import Person from "./components/Person";
 import AddForm from "./components/AddForm";
+import personService from "./services/persons";
+import Notification from "./components/Notification";
+import Error from "./components/Error";
 // component
 
 const App = () => {
   const [persons, setPersons] = useState([]);
-  //get the data//get the data//get the data//get the data//get the data//get the data//get the data
-  useEffect(() => {
-    axios
-      .get("http://localhost:3001/persons")
-      .then((response) => setPersons(response.data));
-  }, []);
+  const [notification, setNotification] = useState(null);
+  const [errorMessage, SetErrorMessage] = useState(null);
 
   //state variables
   const [newName, setNewName] = useState("");
@@ -21,19 +19,74 @@ const App = () => {
   const filteredBook = persons.filter((person) =>
     person.name.toLowerCase().includes(filter.toLowerCase())
   );
-  //function
+  //get the data
+  useEffect(() => {
+    personService.getAll().then((initial) => {
+      setPersons(initial.data);
+    });
+  }, []);
+
+  //functions
   const addPerson = (event) => {
     event.preventDefault();
+
+    const personObject = {
+      name: newName,
+      number: newNumber,
+    };
+
     if (persons.some((person) => person.name === newName)) {
-      alert(`${newName} is already added to phonebook`);
+      if (
+        window.confirm(
+          `${personObject.name} is already in the phonebook, would you like to replace the number?`
+        )
+      ) {
+        const person = persons.find((p) => p.name === personObject.name);
+        personService
+          .update(person.id, personObject)
+          .then((response) => {
+            setPersons(
+              persons.map((p) => (p.id !== person.id ? p : response.data))
+            );
+            setStyle(notificationStyle);
+            setNotification(`${person.name}'s number is changed`);
+            setTimeout(() => {
+              setNotification(null);
+            }, 5000);
+          })
+          .catch((error) => console.log(error));
+      }
     } else {
-      const personObject = {
-        name: newName,
-        number: newNumber,
-      };
-      setPersons(persons.concat(personObject));
-      setNewName("");
-      setNewNumber("");
+      personService
+        .create(personObject)
+        .then((response) => {
+          setPersons(persons.concat(response));
+          setNotification(`${personObject.name} is added`);
+          setTimeout(() => {
+            setNotification(null);
+          }, 5000);
+        })
+        .catch((error) => console.log("fail", error));
+    }
+    setNewName("");
+    setNewNumber("");
+  };
+
+  const removePerson = (person) => {
+    const id = person.id;
+    if (window.confirm(`Delete ${person.name}?`)) {
+      personService
+        .remove(person.id)
+        .then(() => {
+          setPersons(persons.filter((person) => person.id !== id));
+        })
+        .catch((error) => {
+          SetErrorMessage(`the ${person.name} is already deleted`);
+          setPersons(persons.filter((p) => p.id !== id));
+          setTimeout(() => {
+            SetErrorMessage(null);
+          }, 5000);
+        });
     }
   };
   //event handlers
@@ -53,6 +106,8 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={notification} />
+      <Error message={errorMessage} />
       <Filter filter={filter} handleFilter={handleFilter} />
       <br></br>
       <h2>Add new</h2>
@@ -65,7 +120,11 @@ const App = () => {
       />
       <h2>Numbers</h2>
       {filteredBook.map((person) => (
-        <Person key={person.name} person={person} />
+        <Person
+          key={person.name}
+          person={person}
+          remove={() => removePerson(person)}
+        />
       ))}
     </div>
   );
