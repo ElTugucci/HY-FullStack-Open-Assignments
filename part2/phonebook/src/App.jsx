@@ -5,14 +5,12 @@ import AddForm from "./components/AddForm";
 import personService from "./services/persons";
 import Notification from "./components/Notification";
 import Error from "./components/Error";
-// component
 
 const App = () => {
+  //state variables
   const [persons, setPersons] = useState([]);
   const [notification, setNotification] = useState(null);
   const [errorMessage, SetErrorMessage] = useState(null);
-
-  //state variables
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [filter, setFilter] = useState("");
