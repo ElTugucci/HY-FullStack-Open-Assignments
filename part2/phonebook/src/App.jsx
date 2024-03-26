@@ -46,13 +46,18 @@ const App = () => {
             setPersons(
               persons.map((p) => (p.id !== person.id ? p : response.data))
             );
-            setStyle(notificationStyle);
             setNotification(`${person.name}'s number is changed`);
             setTimeout(() => {
               setNotification(null);
             }, 5000);
           })
-          .catch((error) => console.log(error));
+          .catch((error) => {
+            console.log(error.response.data.error);
+            SetErrorMessage(error.response.data.error);
+            setTimeout(() => {
+              SetErrorMessage(null);
+            }, 5000);
+          });
       }
     } else {
       personService
@@ -64,7 +69,13 @@ const App = () => {
             setNotification(null);
           }, 5000);
         })
-        .catch((error) => console.log("fail", error));
+        .catch((error) => {
+          console.log(error.response.data.error);
+          SetErrorMessage(error.response.data.error);
+          setTimeout(() => {
+            SetErrorMessage(null);
+          }, 5000);
+        });
     }
     setNewName("");
     setNewNumber("");
@@ -79,7 +90,7 @@ const App = () => {
           setPersons(persons.filter((person) => person.id !== id));
         })
         .catch((error) => {
-          SetErrorMessage(`the ${person.name} is already deleted`);
+          SetErrorMessage(`${error}the ${person.name} is already deleted`);
           setPersons(persons.filter((p) => p.id !== id));
           setTimeout(() => {
             SetErrorMessage(null);
