@@ -1,0 +1,9 @@
+Script started on Mon Jan 20 15:58:29 2025
+[1m[7m%[27m[1m[0m                                                                                      k..cript-answers\]7;file://Anton-MacBook-Air.local/Users/anton/code/fso-assignments/part12-containers-applications/script-answers\[0m[27m[24m[J[33mλ Anton-MacBook-Air [32mscript-answers [33m→ [00m[K[?1h=[?2004h[0m[27m[24m[J[33mλ Anton-MacBook-Air [32mscript-answers [33m→ λ [34mgit [31mmain*[33m → [00m[00m[K[32mscript[39m[32md[32mo[32mc[32mk[32me[32mr[39m container run -it ubuntu bash[K[?1l>[?2004l
+kdocker\[?2004h]0;root@a7728dd9667a: /root@a7728dd9667a:/# mkdir /usr/src/app
+[?2004l[?2004h]0;root@a7728dd9667a: /root@a7728dd9667a:/# touch /usr/src/app/index.js
+[?2004l[?2004h]0;root@a7728dd9667a: /root@a7728dd9667a:/# [Kexit
+[?2004lexit
+[1m[7m%[27m[1m[0m                                                                                      k..cript-answers\]7;file://Anton-MacBook-Air.local/Users/anton/code/fso-assignments/part12-containers-applications/script-answers\[0m[27m[24m[J[33mλ Anton-MacBook-Air [32mscript-answers [33m→ λ [34mgit [31mmain*[33m → [00m[00m[K[?1h=[?2004h[1m[31me[0m[39m[0m[32me[32mx[39m[1m[31me[1m[31mx[1m[31mi[0m[39m[0m[32me[0m[32mx[0m[32mi[32mt[39m[?1l>[?2004l
+kexit\
+Script done on Mon Jan 20 15:59:23 2025
