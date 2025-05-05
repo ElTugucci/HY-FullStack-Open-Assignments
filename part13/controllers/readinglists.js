@@ -1,6 +1,5 @@
 const router = require('express').Router()
 
-const { where } = require('sequelize')
 const { ReadingList, User, Blog } = require('../models')
 
 const { tokenExtractor, checkSession, blogFinder } = require('../util/middleware')

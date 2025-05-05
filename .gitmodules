@@ -1,0 +1,18 @@
+[submodule "part11"]
+	path = part11
+	url = https://github.com/ElTugucci/full-stack-open-pokedex
+[submodule "part03"]
+	path = part03
+	url = https://github.com/ElTugucci/fso-phonebook-backend
+[submodule "part04"]
+	path = part04
+	url = https://github.com/ElTugucci/fso-bloglist-backend
+[submodule "part05"]
+	path = part05
+	url = https://github.com/ElTugucci/bloglist-frontend
+[submodule "part06"]
+	path = part06
+	url = https://github.com/ElTugucci/fso-part6
+[submodule "part10"]
+	path = part10
+	url = https://github.com/ElTugucci/rate-repository-app
